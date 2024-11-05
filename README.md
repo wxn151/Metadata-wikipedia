@@ -1,8 +1,7 @@
-# Deploying a Node.js App with Axios
-Nodejs script to access a the published date to any wikipedia ARTICLE
+# Nodejs script to access a the published date to any wikipedia ARTICLE
 
 ## Prerequisites
-Before run the app.js (steps)
+Before run the app.js
 
 ```bash
 # Create project directory
