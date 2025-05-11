@@ -1,15 +1,18 @@
-# Nodejs script to access a the published date to any wikipedia ARTICLE
+# Fetch wikiArticle metadata
+Script to access a the published date (initial and last revision) to any wikipedia article.
+## Prerequisites 
+You must have node js installed (https://nodejs.org/en)
 
-## Prerequisites
-Before run the app.js
+## How to Run
+1. Install dependencies:
+   ```bash
+   npm i
+   ```
 
-```bash
-# Create project directory
-mkdir my-node-app
-cd my-node-app
-
-# Initialize the project
-npm init -y
-
-# Install dependencies
-npm install axios express
+2. Run the script
+   
+   ```js
+      node app.js
+      Enter the wiki article URL (or type "exit" to quit): https://es.wikipedia.org/wiki/... ☜(꒡⌓꒡)
+   ```
+   

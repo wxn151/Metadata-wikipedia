@@ -1,22 +1,10 @@
 const axios = require('axios');
-const fs = require('fs');
-const http = require('http');
-const EventEmitter = require('events');
 const readline = require('readline');
-class PageVisitEmitter extends EventEmitter {}
-const pageVisitEmitter = new PageVisitEmitter();
-
-
-
-/*
-The published date to any wikipedia ARTICLE
-*/
 
 const rdln = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-
 
 const wbste_inpt = () => {
     rdln.question('Enter the wiki article URL (or type "exit" to quit): ', (input) => {
@@ -25,44 +13,56 @@ const wbste_inpt = () => {
             rdln.close();
             return;
         }
-		// RE-EDIT
-        fetchAndParseRSS(input);
+        // Get the article title from the URL
+        const articleTitle = find(input);
+        if (articleTitle) {
+            fetchArticleInfo(articleTitle);
+        } else {
+            console.log('Invalid URL. Please provide a valid Wikipedia article URL.');
+            wbste_inpt();
+        }
     });
 };
 
+// Function to fetch article information using Wikipedia API
+function fetchArticleInfo(articleTitle) {
+    const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${articleTitle}&prop=revisions&rvprop=timestamp&rvlimit=5&format=json`;
 
-function fetchAndParseRSS(article){
-  const favorite = find(article);
-  const url = `https://en.wikipedia.org/w/index.php?title=${favorite}&feed=rss`;
-  axios.get(url)
-    .then(response => {
-		const copyright = datePublished(response.data);
-		// forget author / d. pub.
-		console.log(find(article));
-		console.log('Article published date:', copyright);
-		wbste_inpt();
-		
-  })
-  .catch(error => {
-    console.error('Error fetching the RSS feed:', error);
-  });
+    // Wrap in a try-catch-finally block
+    axios.get(url)
+        .then(response => {
+            const pages = response.data.query.pages;
+            const page = Object.values(pages)[0];
+
+            if (page.revisions && page.revisions.length > 0) {
+                const lastModified = page.revisions[0].timestamp;
+                const firstRevision = page.revisions[page.revisions.length - 1].timestamp;
+                console.log(`First revision date (published): ${firstRevision}`);
+
+                if (page.revisions.length > 1) {
+                    console.log(`Last modified date: ${lastModified}`);
+                    console.log(`Total revisions: ${page.revisions.length}`);
+                }
+                else {
+                    console.log('The article has only one revision (likely the initial publication).');
+                }
+            } else {
+                console.log('No revision data found for this article.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching the article info:', error);
+        })
+        .finally(() => {
+            wbste_inpt(); // Prompt for a new article URL or exit
+        });
 }
 
-function datePublished(xml) {
-    const regex = /"datePublished":"([^"]+)"/;
-    const match = xml.match(regex);
-    
-    if (match) {
-        return match[1];
-    } else {
-        return null;
-    }
-}
-
+// Function to extract the article title from the URL
 function find(wiki) {
     const regex = /\/wiki\/([^?]+)/;
     const match = wiki.match(regex);
-    
+
     if (match) {
         return match[1];
     } else {
@@ -70,11 +70,5 @@ function find(wiki) {
     }
 }
 
-
-// handler momentum
-pageVisitEmitter.on('banned', () => {
-	console.log('Made by wxn')
-	wbste_inpt(); // pre-fabricated
-});
-
-pageVisitEmitter.emit('banned')
+// Start the script
+wbste_inpt();
