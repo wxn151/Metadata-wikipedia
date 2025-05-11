@@ -1,4 +1,4 @@
-# Fetch wikiArticle metadata
+# Fetch wikipedia article metadata
 Script to access a the published date (initial and last revision) to any wikipedia article.
 ## Prerequisites 
 You must have node js installed (https://nodejs.org/en)
@@ -12,7 +12,8 @@ You must have node js installed (https://nodejs.org/en)
 2. Run the script
    
    ```js
-      node app.js
-      Enter the wiki article URL (or type "exit" to quit): https://es.wikipedia.org/wiki/... ☜(꒡⌓꒡)
+   node app.js
+   Enter the wiki article URL (or type "exit" to quit): 
+   https://es.wikipedia.org/wiki/... ☜(꒡⌓꒡)
    ```
    
