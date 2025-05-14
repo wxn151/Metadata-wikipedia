@@ -1,6 +1,4 @@
-# Metadata for wikipedia article
-
-Fetch data on the first, last, and full revisions of a Wikipedia article using the API.
+## Metadata for wikipedia article
 
 Requirements
 
@@ -14,4 +12,9 @@ node app.js
 
 And finally on commnad prompt
 >https://es.wikipedia.org/wiki/... ☜(꒡⌓꒡)
+
+Finally retrive...
+  First revision date (published): 
+  Last modified date: 
+  Total revisions: 
 
