@@ -1,12 +1,12 @@
-# Wikipedia Article Metadata
+# Metadata for wikipedia article
 
 Fetch data on the first, last, and full revisions of a Wikipedia article using the API.
 
-Requirements / Requisitos
+Requirements
 
 - [Node.js](https://example.com) installed
 
-How to run it / Como ejecutarlo
+How to run it
 ```bash
 npm install
 node app.js
