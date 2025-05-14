@@ -10,11 +10,12 @@ npm install
 node app.js
 ```
 
-And finally on commnad prompt
+And on commnad prompt
 >https://es.wikipedia.org/wiki/... ☜(꒡⌓꒡)
 
-Finally retrive...
-  First revision date (published): 
-  Last modified date: 
-  Total revisions: 
-
+Finally retrieve...
+```
+First revision date (published): 
+Last modified date: 
+Total revisions: 
+```
